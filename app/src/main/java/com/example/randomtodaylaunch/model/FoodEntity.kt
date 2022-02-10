@@ -21,6 +21,18 @@ import java.io.Serializable
 data class FoodEntity(
     @PrimaryKey(autoGenerate = true)
     var id : Int?,
+    @NonNull
     var type : String,
+    @NonNull
     var name : String,
 )
+//Expected:
+//TableInfo{name='food', columns={
+//    name=Column{name='name', type='TEXT', affinity='2', notNull=true, primaryKeyPosition=0, defaultValue='null'},
+//    type=Column{name='type', type='TEXT', affinity='2', notNull=true, primaryKeyPosition=0, defaultValue='null'},
+//    id=Column{name='id', type='INTEGER', affinity='3', notNull=false, primaryKeyPosition=1, defaultValue='null'}}, foreignKeys=[], indices=[]}
+//Found:
+//TableInfo{name='food', columns={
+//    name=Column{name='name', type='TEXT', affinity='2', notNull=false, primaryKeyPosition=0, defaultValue='null'},
+//    id=Column{name='id', type='INTEGER', affinity='3', notNull=false, primaryKeyPosition=1, defaultValue='null'},
+//    type=Column{name='type', type='TEXT', affinity='2', notNull=false, primaryKeyPosition=0, defaultValue='null'}}, foreignKeys=[], indices=[]}

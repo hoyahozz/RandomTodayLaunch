@@ -1,6 +1,7 @@
 package com.example.randomtodaylaunch.data
 
 import androidx.room.*
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.example.randomtodaylaunch.model.FoodEntity
 
 /**
@@ -18,4 +19,7 @@ interface ListDAO {
 
     @Query("SELECT * FROM food where type = :type")
     fun getAllFood(type : String) : List<FoodEntity>
+
+//    @RawQuery
+//    suspend fun getAllFood(query : SupportSQLiteQuery) : List<FoodEntity>
 }
