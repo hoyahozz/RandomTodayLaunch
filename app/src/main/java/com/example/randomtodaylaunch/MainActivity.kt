@@ -11,6 +11,8 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.RadioButton
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.example.randomtodaylaunch.data.DatabaseCopier
 import com.example.randomtodaylaunch.data.FoodDataBase
@@ -25,8 +27,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var db: FoodDataBase
     private var foodType = "한식"
-    private lateinit var getFoodList : List<FoodEntity>
-    private lateinit var job : Job
+    private lateinit var getFoodList: List<FoodEntity>
+    private lateinit var job: Job
+    private val TAG = "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,20 +46,36 @@ class MainActivity : AppCompatActivity() {
             job.join()
         }
 
-        binding.foodRg.setOnCheckedChangeListener { radioGroup, i ->
-            when (i) {
-                R.id.foodChinaRb -> foodType = "중식"
-                R.id.foodKoreanRb -> foodType = "한식"
-                R.id.foodJapanRb -> foodType = "일식"
-            }
-        }
 
-        binding.foodRg2.setOnCheckedChangeListener { radioGroup, i ->
-            when (i) {
-                R.id.foodDrinkRb -> foodType = "술집"
-            }
-        }
+        binding.chipGroup.layoutDirection = View.LAYOUT_DIRECTION_LOCALE
+        binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
+            Log.d(TAG, "chipGroup ON")
+            when(checkedId) {
+                R.id.chip_korea -> {
+                    foodType = "한식"
+                }
+                R.id.chip_china -> {
+                    foodType = "중식"
+                }
 
+                R.id.chip_japan -> {
+                    foodType = "일식"
+                }
+
+                R.id.chip_europe -> {
+                    foodType = "양식"
+                }
+
+                R.id.chip_drink -> {
+                    foodType = "술집"
+                }
+
+                R.id.chip_snack -> {
+                    foodType = "분식"
+                }
+            }
+
+        }
 
 
 
@@ -66,6 +85,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.pick.setOnClickListener {
             GlobalScope.launch {
+                Log.d(TAG, "onCreate: $foodType")
 //                val query = SimpleSQLiteQuery("SELECT * FROM food where type = $foodType")
                 getFoodList = db.listDAO().getAllFood(foodType)
 

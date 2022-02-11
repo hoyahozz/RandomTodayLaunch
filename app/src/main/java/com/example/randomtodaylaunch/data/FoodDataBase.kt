@@ -21,7 +21,6 @@ import java.util.concurrent.Executors
 abstract class FoodDataBase : RoomDatabase() {
     abstract fun listDAO(): ListDAO
 
-
 /*
     데이터베이스를 만드는 작업은 리소스를 많이 잡아먹기 때문에,
     앱 전체 프로세스 안에서 객체를 한번만 생성하는 것이 유리하다. (Singleton Pattern)
