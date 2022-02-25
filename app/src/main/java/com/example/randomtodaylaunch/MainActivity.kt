@@ -13,11 +13,13 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.RadioButton
+import androidx.activity.viewModels
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.example.randomtodaylaunch.data.DatabaseCopier
 import com.example.randomtodaylaunch.data.FoodDataBase
 import com.example.randomtodaylaunch.databinding.ActivityMainBinding
 import com.example.randomtodaylaunch.model.FoodEntity
+import com.example.randomtodaylaunch.viewModel.ListViewModel
 import kotlinx.coroutines.*
 import java.util.*
 import kotlin.system.exitProcess
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var getFoodList: List<FoodEntity>
     private lateinit var job: Job
     private val TAG = "MainActivity"
+    private val viewModel : ListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,55 +56,56 @@ class MainActivity : AppCompatActivity() {
             when(checkedId) {
                 R.id.chip_korea -> {
                     foodType = "한식"
+                    viewModel.getTypeFood(foodType)
                 }
+
                 R.id.chip_china -> {
                     foodType = "중식"
+                    viewModel.getTypeFood(foodType)
                 }
 
                 R.id.chip_japan -> {
                     foodType = "일식"
+                    viewModel.getTypeFood(foodType)
                 }
 
                 R.id.chip_europe -> {
                     foodType = "양식"
+                    viewModel.getTypeFood(foodType)
                 }
 
                 R.id.chip_drink -> {
                     foodType = "술집"
+                    viewModel.getTypeFood(foodType)
                 }
 
                 R.id.chip_snack -> {
                     foodType = "분식"
+                    viewModel.getTypeFood(foodType)
                 }
+
+
             }
 
         }
 
+        binding.pickBtn.setOnClickListener {
 
+            getFoodList = viewModel.typeFood.value!!
 
-//        GlobalScope.launch {
-//            insertDefaultFoodList()
-//        }
+            val random = Random()
+            val randomInt = random.nextInt(getFoodList.size - 1)
 
-        binding.pick.setOnClickListener {
-            GlobalScope.launch {
-                Log.d(TAG, "onCreate: $foodType")
-//                val query = SimpleSQLiteQuery("SELECT * FROM food where type = $foodType")
-                getFoodList = db.listDAO().getAllFood(foodType)
+            val result = getFoodList[randomInt].name
 
-                for (element in getFoodList) {
-                    Log.d("MainActivity", "onCreate: ${element.name}")
-                }
+            val intent = Intent(applicationContext, ResultActivity::class.java)
+            intent.putExtra("result", result)
+            startActivity(intent)
+        }
 
-                val random = Random()
-                val randomInt = random.nextInt(getFoodList.size - 1)
-
-                val result = getFoodList[randomInt].name
-
-                val intent = Intent(applicationContext, ResultActivity::class.java)
-                intent.putExtra("result", result)
-                startActivity(intent)
-            }
+        binding.listBtn.setOnClickListener {
+            val intent = Intent(applicationContext, ListActivity::class.java)
+            startActivity(intent)
         }
     }
 

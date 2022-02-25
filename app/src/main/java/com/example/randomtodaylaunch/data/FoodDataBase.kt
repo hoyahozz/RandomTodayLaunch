@@ -11,12 +11,6 @@ import com.example.randomtodaylaunch.model.FoodEntity
 import kotlinx.coroutines.runBlocking
 import java.util.concurrent.Executors
 
-/**
- * @Author : Jeong Ho Kim
- * @Created : 2021-10-24
- * @Description : Database(Schema) 를 정의하는 클래스
- */
-
 @Database(entities = arrayOf(FoodEntity::class), version = 2)
 abstract class FoodDataBase : RoomDatabase() {
     abstract fun listDAO(): ListDAO

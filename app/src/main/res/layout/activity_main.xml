@@ -100,7 +100,7 @@
     </com.google.android.material.chip.ChipGroup>
 
     <Button
-        android:id="@+id/pick"
+        android:id="@+id/pickBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -113,17 +113,14 @@
         app:layout_constraintTop_toBottomOf="@+id/chip_group" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/listBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="225dp"
+        android:layout_marginTop="75dp"
         android:text="어떤게 있을까?"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pick" />
-
+        app:layout_constraintTop_toTopOf="@+id/pickBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

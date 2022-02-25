@@ -1,24 +1,22 @@
 package com.example.randomtodaylaunch.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.example.randomtodaylaunch.model.FoodEntity
-
-/**
- * @Author : Jeong Ho Kim
- * @Created : 2021-10-24
- * @Description : Data Access Object 를 정의하는 인터페이스
- */
-
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ListDAO {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertFood(foodEntity: FoodEntity)
+    @Query("SELECT * FROM food")
+    fun getAllFood() : LiveData<List<FoodEntity>>
 
     @Query("SELECT * FROM food where type = :type")
-    fun getAllFood(type : String) : List<FoodEntity>
+    suspend fun getTypeFood(type : String) : List<FoodEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertFood(foodEntity: FoodEntity)
 
 //    @RawQuery
 //    suspend fun getAllFood(query : SupportSQLiteQuery) : List<FoodEntity>

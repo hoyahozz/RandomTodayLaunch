@@ -13,7 +13,7 @@ object DatabaseCopier {
 
     private const val TAG = "DatabaseCopier"
     private const val DB_NAME = "defaultFoodList.db"
-    private var INSTANCE : FoodDataBase? = null
+    var INSTANCE : FoodDataBase? = null
 
     fun getInstance(context: Context): FoodDataBase? {
         if (INSTANCE == null) {
