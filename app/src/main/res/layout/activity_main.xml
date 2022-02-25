@@ -1,126 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="34dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="20dp"
-        android:fontFamily="@font/nanumgothic"
-        android:text="어떤 종류?"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/chip_group"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.071"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chip_group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="34dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="24dp"
-        app:chipSpacingHorizontal="70dp"
-        app:chipSpacingVertical="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.589"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:singleSelection="true">
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_korea"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checkable="true"
-            android:checked="false"
-            android:text="한식" />
+            android:layout_gravity="center"
+            android:layout_marginStart="34dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/nanumgothic"
+            android:text="어떤 종류?"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/chip_group"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.071"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_china"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checkable="true"
-            android:checked="false"
-            android:text="중식" />
+            android:layout_gravity="center"
+            android:layout_marginStart="34dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="24dp"
+            app:chipSpacingHorizontal="70dp"
+            app:chipSpacingVertical="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.589"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:singleSelection="true">
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_japan"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_korea"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="true"
+                android:text="한식" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_china"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="false"
+                android:text="중식" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_japan"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="false"
+                android:text="일식" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_drink"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="false"
+                android:text="술집" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_europe"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="false"
+                android:text="양식" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_snack"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="false"
+                android:text="분식" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <Button
+            android:id="@+id/pickBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checkable="true"
-            android:checked="false"
-            android:text="일식" />
+            android:layout_gravity="center"
+            android:layout_marginStart="129dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="129dp"
+            android:text="뭘 먹을까?"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chip_group" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_drink"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
+        <Button
+            android:id="@+id/listBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checkable="true"
-            android:checked="false"
-            android:text="술집" />
+            android:layout_marginTop="75dp"
+            android:text="어떤게 있을까?"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/pickBtn" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_europe"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checkable="true"
-            android:checked="false"
-            android:text="양식" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_snack"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checkable="true"
-            android:checked="false"
-            android:text="분식" />
-
-    </com.google.android.material.chip.ChipGroup>
-
-    <Button
-        android:id="@+id/pickBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="129dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="129dp"
-        android:text="뭘 먹을까?"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chip_group" />
-
-    <Button
-        android:id="@+id/listBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="75dp"
-        android:text="어떤게 있을까?"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/pickBtn" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.randomtodaylaunch.data.DatabaseCopier
-import com.example.randomtodaylaunch.data.FoodDataBase
 import com.example.randomtodaylaunch.data.ListDAO
 import com.example.randomtodaylaunch.model.FoodEntity
 import kotlinx.coroutines.launch

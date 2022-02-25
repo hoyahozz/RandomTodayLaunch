@@ -16,6 +16,6 @@ class ResultActivity : AppCompatActivity() {
 
         val getResult = intent.getStringExtra("result")
 
-        binding.result.text = getResult
+        binding.setResult(getResult)
     }
 }

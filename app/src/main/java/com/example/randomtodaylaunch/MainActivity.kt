@@ -1,7 +1,9 @@
 package com.example.randomtodaylaunch
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -49,10 +51,11 @@ class MainActivity : AppCompatActivity() {
             job.join()
         }
 
+        viewModel.getTypeFood(foodType) // 초기 데이터 지정
 
         binding.chipGroup.layoutDirection = View.LAYOUT_DIRECTION_LOCALE
         binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
-            Log.d(TAG, "chipGroup ON")
+
             when(checkedId) {
                 R.id.chip_korea -> {
                     foodType = "한식"
@@ -83,15 +86,14 @@ class MainActivity : AppCompatActivity() {
                     foodType = "분식"
                     viewModel.getTypeFood(foodType)
                 }
-
-
             }
-
+        }
+        
+        viewModel.typeFood.observe(this) {
+            getFoodList = it
         }
 
         binding.pickBtn.setOnClickListener {
-
-            getFoodList = viewModel.typeFood.value!!
 
             val random = Random()
             val randomInt = random.nextInt(getFoodList.size - 1)
@@ -108,7 +110,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
+    
     override fun onDestroy() {
         job.cancel()
         super.onDestroy()

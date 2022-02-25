@@ -16,6 +16,7 @@ class ListAdapter(private val food : List<FoodEntity>) : RecyclerView.Adapter<Li
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
+
         val item = food[position]
         holder.name.text = item.name
         holder.type.text = item.type
@@ -27,5 +28,7 @@ class ListAdapter(private val food : List<FoodEntity>) : RecyclerView.Adapter<Li
         val image = binding.itemImage
         val name = binding.itemName
         val type = binding.itemType
+
+
     }
 }

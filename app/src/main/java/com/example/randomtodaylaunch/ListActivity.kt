@@ -30,8 +30,5 @@ class ListActivity : AppCompatActivity() {
             binding.listRcv.layoutManager = LinearLayoutManager(this)
             binding.listRcv.addItemDecoration(RecyclerViewDecoration(5))
         }
-
-
-
     }
 }
