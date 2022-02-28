@@ -15,6 +15,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.RadioButton
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.example.randomtodaylaunch.data.DatabaseCopier
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var db: FoodDataBase
-    private var foodType = "한식"
+    private var foodType = ""
     private lateinit var getFoodList: List<FoodEntity>
     private lateinit var job: Job
     private val TAG = "MainActivity"
@@ -54,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.getTypeFood(foodType) // 초기 데이터 지정
 
         binding.chipGroup.layoutDirection = View.LAYOUT_DIRECTION_LOCALE
-        binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
+        binding.chipGroup.setOnCheckedChangeListener { _, checkedId ->
 
             when(checkedId) {
                 R.id.chip_korea -> {
@@ -95,14 +96,22 @@ class MainActivity : AppCompatActivity() {
 
         binding.pickBtn.setOnClickListener {
 
-            val random = Random()
-            val randomInt = random.nextInt(getFoodList.size - 1)
+            if(foodType == "") {
+                Toast.makeText(this, "한 가지는 선택해주세요.", Toast.LENGTH_SHORT).show()
+            } else {
+                val random = Random()
+                if(getFoodList.isNotEmpty()) {
+                    val randomInt = random.nextInt(getFoodList.size - 1)
 
-            val result = getFoodList[randomInt].name
+                    val result = getFoodList[randomInt].name
 
-            val intent = Intent(applicationContext, ResultActivity::class.java)
-            intent.putExtra("result", result)
-            startActivity(intent)
+                    val intent = Intent(applicationContext, ResultActivity::class.java)
+                    intent.putExtra("result", result)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this, "데이터가 존재하지 않아요.\n다른 종류를 선택해주세요.", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
         binding.listBtn.setOnClickListener {

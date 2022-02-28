@@ -2,6 +2,9 @@ package com.example.randomtodaylaunch
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import com.example.randomtodaylaunch.databinding.ActivityMainBinding
 import com.example.randomtodaylaunch.databinding.ActivityResultBinding
 
@@ -17,5 +20,27 @@ class ResultActivity : AppCompatActivity() {
         val getResult = intent.getStringExtra("result")
 
         binding.setResult(getResult)
+
+        binding.btnRestart.setOnClickListener {
+            finish()
+        }
+
+        val animation = AnimationUtils.loadAnimation(applicationContext, R.anim.rotate)
+        animation.duration = 1000
+        binding.ivRotate.startAnimation(animation)
+
+        animation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(p0: Animation?) {
+            }
+
+            override fun onAnimationEnd(p0: Animation?) {
+                binding.result.visibility = View.VISIBLE
+                binding.btnRestart.visibility = View.VISIBLE
+            }
+
+            override fun onAnimationRepeat(p0: Animation?) {
+            }
+
+        })
     }
 }
