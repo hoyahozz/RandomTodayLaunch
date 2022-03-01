@@ -18,6 +18,6 @@ interface ListDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFood(foodEntity: FoodEntity)
 
-//    @RawQuery
-//    suspend fun getAllFood(query : SupportSQLiteQuery) : List<FoodEntity>
+    @RawQuery
+    suspend fun getFood(query : SupportSQLiteQuery) : List<FoodEntity>
 }

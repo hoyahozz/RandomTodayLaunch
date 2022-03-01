@@ -44,7 +44,7 @@
             app:layout_constraintHorizontal_bias="0.589"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:singleSelection="true">
+            app:singleSelection="false">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_korea"

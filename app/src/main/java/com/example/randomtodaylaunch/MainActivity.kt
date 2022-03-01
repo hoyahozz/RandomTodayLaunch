@@ -17,12 +17,14 @@ import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.room.Query
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.example.randomtodaylaunch.data.DatabaseCopier
 import com.example.randomtodaylaunch.data.FoodDataBase
 import com.example.randomtodaylaunch.databinding.ActivityMainBinding
 import com.example.randomtodaylaunch.model.FoodEntity
 import com.example.randomtodaylaunch.viewModel.ListViewModel
+import com.google.android.material.chip.Chip
 import kotlinx.coroutines.*
 import java.util.*
 import kotlin.system.exitProcess
@@ -31,7 +33,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var db: FoodDataBase
-    private var foodType = ""
     private lateinit var getFoodList: List<FoodEntity>
     private lateinit var job: Job
     private val TAG = "MainActivity"
@@ -52,51 +53,36 @@ class MainActivity : AppCompatActivity() {
             job.join()
         }
 
-        viewModel.getTypeFood(foodType) // 초기 데이터 지정
-
         binding.chipGroup.layoutDirection = View.LAYOUT_DIRECTION_LOCALE
-        binding.chipGroup.setOnCheckedChangeListener { _, checkedId ->
 
-            when(checkedId) {
-                R.id.chip_korea -> {
-                    foodType = "한식"
-                    viewModel.getTypeFood(foodType)
+        val checkList = mutableListOf<String>() // 선택한 리스트를 담는 공간
+
+        // 다중 칩그룹 선택에 따른 데이터 추가
+        for (index in 0 until binding.chipGroup.childCount) {
+            val chip : Chip = binding.chipGroup.getChildAt(index) as Chip
+
+            chip.setOnCheckedChangeListener { view, isChecked ->
+                if(isChecked) {
+                    checkList.add(view.text.toString())
+                    val query = SimpleSQLiteQuery("SELECT * FROM food WHERE type IN ('${checkList.joinToString("','")}')")
+                    viewModel.getFood(query)
+                } else {
+                    checkList.remove(view.text.toString())
                 }
 
-                R.id.chip_china -> {
-                    foodType = "중식"
-                    viewModel.getTypeFood(foodType)
-                }
-
-                R.id.chip_japan -> {
-                    foodType = "일식"
-                    viewModel.getTypeFood(foodType)
-                }
-
-                R.id.chip_europe -> {
-                    foodType = "양식"
-                    viewModel.getTypeFood(foodType)
-                }
-
-                R.id.chip_drink -> {
-                    foodType = "술집"
-                    viewModel.getTypeFood(foodType)
-                }
-
-                R.id.chip_snack -> {
-                    foodType = "분식"
-                    viewModel.getTypeFood(foodType)
+                if (checkList.isNotEmpty()) {
+                    Log.d(TAG, "'SELECT * FROM food WHERE type IN ('${checkList.joinToString("','")}')")
                 }
             }
         }
+
         
         viewModel.typeFood.observe(this) {
             getFoodList = it
         }
 
         binding.pickBtn.setOnClickListener {
-
-            if(foodType == "") {
+            if(checkList.isEmpty()) {
                 Toast.makeText(this, "한 가지는 선택해주세요.", Toast.LENGTH_SHORT).show()
             } else {
                 val random = Random()
