@@ -9,6 +9,7 @@ import androidx.sqlite.db.SimpleSQLiteQuery
 import com.example.randomtodaylaunch.data.DatabaseCopier
 import com.example.randomtodaylaunch.data.ListDAO
 import com.example.randomtodaylaunch.model.FoodEntity
+import com.example.randomtodaylaunch.model.MenuEntity
 import kotlinx.coroutines.launch
 
 class ListViewModel : ViewModel() {
@@ -22,10 +23,14 @@ class ListViewModel : ViewModel() {
     private val _typeFood = MutableLiveData<List<FoodEntity>>()
     val typeFood : LiveData<List<FoodEntity>> get() = _typeFood
 
-    fun getTypeFood(type : String) {
+    private val _menuList = MutableLiveData<List<MenuEntity>>()
+    val menuList : LiveData<List<MenuEntity>> get() = _menuList
+
+
+    fun getMenuList(fname : String) {
         viewModelScope.launch {
-            val tmp : List<FoodEntity> = listDAO.getTypeFood(type)
-            _typeFood.postValue(tmp)
+            val tmp : List<MenuEntity> = listDAO.getMenuList(fname)
+            _menuList.postValue(tmp)
         }
     }
 
@@ -35,4 +40,5 @@ class ListViewModel : ViewModel() {
             _typeFood.postValue(tmp)
         }
     }
+
 }

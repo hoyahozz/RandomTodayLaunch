@@ -1,4 +1,4 @@
-package com.example.randomtodaylaunch
+package com.example.randomtodaylaunch.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -25,7 +25,7 @@ class ListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         viewModel.allFood.observe(this) {
-            adapter = ListAdapter(it)
+            adapter = ListAdapter(it, this)
             binding.listRcv.adapter = adapter
             binding.listRcv.layoutManager = LinearLayoutManager(this)
             binding.listRcv.addItemDecoration(RecyclerViewDecoration(5))

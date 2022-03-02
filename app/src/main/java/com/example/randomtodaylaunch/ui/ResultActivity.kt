@@ -1,11 +1,11 @@
-package com.example.randomtodaylaunch
+package com.example.randomtodaylaunch.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import com.example.randomtodaylaunch.databinding.ActivityMainBinding
+import com.example.randomtodaylaunch.R
 import com.example.randomtodaylaunch.databinding.ActivityResultBinding
 
 class ResultActivity : AppCompatActivity() {

@@ -1,5 +1,7 @@
 package com.example.randomtodaylaunch.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,9 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.randomtodaylaunch.R
 import com.example.randomtodaylaunch.databinding.ItemListBinding
 import com.example.randomtodaylaunch.model.FoodEntity
+import com.example.randomtodaylaunch.ui.DetailActivity
 
-class ListAdapter(private val food : List<FoodEntity>) : RecyclerView.Adapter<ListAdapter.ListViewHolder>(){
-
+class ListAdapter(private val food: List<FoodEntity>, private val context : Context) :
+    RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val binding = ItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -22,19 +25,25 @@ class ListAdapter(private val food : List<FoodEntity>) : RecyclerView.Adapter<Li
         holder.name.text = item.name
         holder.type.text = item.type
 
-        if(item.name == "한솥도시락") {
+        if (item.name == "한솥도시락") {
             holder.image.setImageResource(R.drawable.hansol)
         } else {
             holder.image.setImageResource(0)
         }
 
+        holder.container.setOnClickListener {
+            val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra("fname", item.name)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int = food.size
 
-    inner class ListViewHolder(binding : ItemListBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ListViewHolder(binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root) {
         val image = binding.itemImage
         val name = binding.itemName
         val type = binding.itemType
+        val container = binding.itemContainer
     }
 }

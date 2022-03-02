@@ -1,23 +1,12 @@
-package com.example.randomtodaylaunch
+package com.example.randomtodaylaunch.ui
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.AttributeSet
 import android.util.Log
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
-import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.room.Query
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.example.randomtodaylaunch.data.DatabaseCopier
 import com.example.randomtodaylaunch.data.FoodDataBase
@@ -27,7 +16,6 @@ import com.example.randomtodaylaunch.viewModel.ListViewModel
 import com.google.android.material.chip.Chip
 import kotlinx.coroutines.*
 import java.util.*
-import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
 

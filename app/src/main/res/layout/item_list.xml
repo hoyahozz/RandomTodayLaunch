@@ -2,13 +2,15 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.ListActivity">
 
     <LinearLayout
+        android:id="@+id/item_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:context=".ListActivity">
+        android:background="@drawable/selector"
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/item_image"

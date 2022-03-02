@@ -8,10 +8,11 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.randomtodaylaunch.model.FoodEntity
+import com.example.randomtodaylaunch.model.MenuEntity
 import kotlinx.coroutines.runBlocking
 import java.util.concurrent.Executors
 
-@Database(entities = arrayOf(FoodEntity::class), version = 2)
+@Database(entities = [FoodEntity::class, MenuEntity::class], version = 2)
 abstract class FoodDataBase : RoomDatabase() {
     abstract fun listDAO(): ListDAO
 
