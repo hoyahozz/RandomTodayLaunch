@@ -11,6 +11,7 @@ import com.example.randomtodaylaunch.databinding.ItemListBinding
 import com.example.randomtodaylaunch.model.FoodEntity
 import com.example.randomtodaylaunch.ui.DetailActivity
 
+/* 음식점 리스트 어댑터 */
 class ListAdapter(private val food: List<FoodEntity>, private val context : Context) :
     RecyclerView.Adapter<ListAdapter.ListViewHolder>() {
 
@@ -25,6 +26,7 @@ class ListAdapter(private val food: List<FoodEntity>, private val context : Cont
         holder.name.text = item.name
         holder.type.text = item.type
 
+        // 이미지
         if (item.name == "한솥도시락") {
             holder.image.setImageResource(R.drawable.hansol)
         } else {

@@ -19,12 +19,16 @@ import androidx.room.ForeignKey
 data class MenuEntity(
     @PrimaryKey(autoGenerate = true)
     var id: Int?,
+
     @NonNull
-    var fname: String,
+    var fname: String?,
+
     @NonNull
-    var name: String,
+    var name: String?,
+
     @NonNull
-    var price: Int,
+    var price: Int?,
+
     @NonNull
-    var main: String,
+    var main: String?
 )

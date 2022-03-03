@@ -13,9 +13,6 @@ interface ListDAO {
     @Query("SELECT * FROM food")
     fun getAllFood() : LiveData<List<FoodEntity>>
 
-    @Query("SELECT * FROM food where type = :type")
-    suspend fun getTypeFood(type : String) : List<FoodEntity>
-
     @Query("SELECT * FROM menu where fname = :fname")
     suspend fun getMenuList(fname : String) : List<MenuEntity>
 

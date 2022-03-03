@@ -26,7 +26,6 @@ class ListViewModel : ViewModel() {
     private val _menuList = MutableLiveData<List<MenuEntity>>()
     val menuList : LiveData<List<MenuEntity>> get() = _menuList
 
-
     fun getMenuList(fname : String) {
         viewModelScope.launch {
             val tmp : List<MenuEntity> = listDAO.getMenuList(fname)
@@ -34,7 +33,7 @@ class ListViewModel : ViewModel() {
         }
     }
 
-    fun getFood(query: SimpleSQLiteQuery) {
+    fun getFoodList(query: SimpleSQLiteQuery) {
         viewModelScope.launch {
             val tmp : List<FoodEntity> = listDAO.getFood(query)
             _typeFood.postValue(tmp)

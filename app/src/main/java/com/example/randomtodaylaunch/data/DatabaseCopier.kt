@@ -9,10 +9,11 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
+/* 데이터베이스 카피 및 생성 */
 object DatabaseCopier {
 
     private const val TAG = "DatabaseCopier"
-    private const val DB_NAME = "defaultFoodList.db"
+    private const val DB_NAME = "defaultDatabase.db"
     var INSTANCE : FoodDataBase? = null
 
     fun getInstance(context: Context): FoodDataBase? {
@@ -52,8 +53,6 @@ object DatabaseCopier {
                 Log.d(TAG, "$version :: 버전 코드 다름!")
                 copyDB(context, dbPath)
             }
-
-
             return
         }
 

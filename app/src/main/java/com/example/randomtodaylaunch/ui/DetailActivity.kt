@@ -12,6 +12,7 @@ import com.example.randomtodaylaunch.databinding.ActivityDetailBinding
 import com.example.randomtodaylaunch.model.MenuEntity
 import com.example.randomtodaylaunch.viewModel.ListViewModel
 
+/* 음식점 상세 정보 액티비티 */
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
@@ -24,8 +25,6 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val fname = intent.getStringExtra("fname").toString()
-
-        Log.d("Detail Activity", "onCreate: $fname")
 
         viewModel.getMenuList(fname)
 

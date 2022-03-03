@@ -3,10 +3,10 @@ package com.example.randomtodaylaunch.ui
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.example.randomtodaylaunch.data.DatabaseCopier
 import com.example.randomtodaylaunch.data.FoodDataBase
@@ -17,6 +17,7 @@ import com.google.android.material.chip.Chip
 import kotlinx.coroutines.*
 import java.util.*
 
+/* 초기 화면 - 메인 액티비티 */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -53,9 +54,11 @@ class MainActivity : AppCompatActivity() {
                 if(isChecked) {
                     checkList.add(view.text.toString())
                     val query = SimpleSQLiteQuery("SELECT * FROM food WHERE type IN ('${checkList.joinToString("','")}')")
-                    viewModel.getFood(query)
+                    viewModel.getFoodList(query)
                 } else {
                     checkList.remove(view.text.toString())
+                    val query = SimpleSQLiteQuery("SELECT * FROM food WHERE type IN ('${checkList.joinToString("','")}')")
+                    viewModel.getFoodList(query)
                 }
 
                 if (checkList.isNotEmpty()) {
@@ -77,10 +80,11 @@ class MainActivity : AppCompatActivity() {
                 if(getFoodList.isNotEmpty()) {
                     val randomInt = random.nextInt(getFoodList.size - 1)
 
-                    val result = getFoodList[randomInt].name
+                    val result = getFoodList[randomInt]
 
                     val intent = Intent(applicationContext, ResultActivity::class.java)
                     intent.putExtra("result", result)
+
                     startActivity(intent)
                 } else {
                     Toast.makeText(this, "데이터가 존재하지 않아요.\n다른 종류를 선택해주세요.", Toast.LENGTH_SHORT).show()
