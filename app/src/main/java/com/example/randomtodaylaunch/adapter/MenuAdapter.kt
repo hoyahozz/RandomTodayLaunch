@@ -20,8 +20,6 @@ class MenuAdapter(private val menu : List<MenuEntity>) : RecyclerView.Adapter<Me
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val item = menu[position]
 
-        Log.d("Menu Adapter", "${menu.size}")
-
         if(item.id == 999999) {
             Log.d("Menu Adapter", "NO MENU")
             holder.name.visibility = View.GONE

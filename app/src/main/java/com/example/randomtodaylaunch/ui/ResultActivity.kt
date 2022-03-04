@@ -1,7 +1,10 @@
 package com.example.randomtodaylaunch.ui
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -14,12 +17,14 @@ import com.example.randomtodaylaunch.databinding.ActivityResultBinding
 import com.example.randomtodaylaunch.model.FoodEntity
 import com.example.randomtodaylaunch.model.MenuEntity
 import com.example.randomtodaylaunch.viewModel.ListViewModel
+import java.util.*
+import kotlin.collections.ArrayList
 
 /* 랜덤 결과 출력 액티비티 */
 class ResultActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityResultBinding
-    private val viewModel : ListViewModel by viewModels()
+    private lateinit var binding: ActivityResultBinding
+    private val viewModel: ListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +32,7 @@ class ResultActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val getResult = intent.getSerializableExtra("result") as FoodEntity
+
 
         binding.food = getResult
 
@@ -45,6 +51,7 @@ class ResultActivity : AppCompatActivity() {
             override fun onAnimationEnd(p0: Animation?) {
                 binding.result.visibility = View.VISIBLE
                 binding.btnRestart.visibility = View.VISIBLE
+                binding.btnWebView.visibility = View.VISIBLE
             }
 
             override fun onAnimationRepeat(p0: Animation?) {
@@ -57,7 +64,7 @@ class ResultActivity : AppCompatActivity() {
             binding.rcvMenu.apply {
 
                 if (it.isEmpty()) {
-                    val noMenu = listOf<MenuEntity>(MenuEntity(999999,null,null, null, null))
+                    val noMenu = listOf(MenuEntity(999999, null, null, null, null))
                     this.adapter = MenuAdapter(noMenu)
                     this.layoutManager = LinearLayoutManager(context)
                 } else {
@@ -67,10 +74,20 @@ class ResultActivity : AppCompatActivity() {
                 }
 
             }
+        }
 
+        binding.btnWebView.setOnClickListener {
 
+            val uri = "고척 ${getResult.name}"
 
+            val intent =
+                Intent(Intent.ACTION_VIEW, Uri.parse("https://m.map.naver.com/search2/search.naver?query=${uri}&sm=hty&style=v5#/list"))
 
+            startActivity(intent)
+        }
+
+        // TODO :: 빼고 다시 돌리기 구현
+        binding.btnRedecide.setOnClickListener {
         }
 
 

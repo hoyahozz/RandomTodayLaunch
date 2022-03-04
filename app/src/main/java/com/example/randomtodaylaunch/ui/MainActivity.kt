@@ -16,6 +16,7 @@ import com.example.randomtodaylaunch.viewModel.ListViewModel
 import com.google.android.material.chip.Chip
 import kotlinx.coroutines.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 /* 초기 화면 - 메인 액티비티 */
 class MainActivity : AppCompatActivity() {
@@ -77,14 +78,14 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "한 가지는 선택해주세요.", Toast.LENGTH_SHORT).show()
             } else {
                 val random = Random()
+
                 if(getFoodList.isNotEmpty()) {
+
                     val randomInt = random.nextInt(getFoodList.size - 1)
-
                     val result = getFoodList[randomInt]
-
                     val intent = Intent(applicationContext, ResultActivity::class.java)
-                    intent.putExtra("result", result)
 
+                    intent.putExtra("result", result)
                     startActivity(intent)
                 } else {
                     Toast.makeText(this, "데이터가 존재하지 않아요.\n다른 종류를 선택해주세요.", Toast.LENGTH_SHORT).show()
