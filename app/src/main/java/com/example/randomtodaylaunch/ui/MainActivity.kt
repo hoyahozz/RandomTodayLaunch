@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var getFoodList: List<FoodEntity>
     private lateinit var job: Job
     private val TAG = "MainActivity"
-    private val viewModel : ListViewModel by viewModels()
+    private val viewModel: ListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,51 +45,38 @@ class MainActivity : AppCompatActivity() {
 
         binding.chipGroup.layoutDirection = View.LAYOUT_DIRECTION_LOCALE
 
-        val checkList = mutableListOf<String>() // 선택한 리스트를 담는 공간
+        val checkList = arrayListOf<String>() // 선택한 리스트를 담는 공간
 
         // 다중 칩그룹 선택에 따른 데이터 추가
         for (index in 0 until binding.chipGroup.childCount) {
-            val chip : Chip = binding.chipGroup.getChildAt(index) as Chip
+            val chip: Chip = binding.chipGroup.getChildAt(index) as Chip
 
             chip.setOnCheckedChangeListener { view, isChecked ->
-                if(isChecked) {
+                if (isChecked) {
                     checkList.add(view.text.toString())
-                    val query = SimpleSQLiteQuery("SELECT * FROM food WHERE type IN ('${checkList.joinToString("','")}')")
-                    viewModel.getFoodList(query)
                 } else {
                     checkList.remove(view.text.toString())
-                    val query = SimpleSQLiteQuery("SELECT * FROM food WHERE type IN ('${checkList.joinToString("','")}')")
-                    viewModel.getFoodList(query)
                 }
-
                 if (checkList.isNotEmpty()) {
-                    Log.d(TAG, "'SELECT * FROM food WHERE type IN ('${checkList.joinToString("','")}')")
+                    Log.d(
+                        TAG,
+                        "'SELECT * FROM food WHERE type IN ('${checkList.joinToString("','")}')"
+                    )
                 }
             }
         }
 
-        
         viewModel.typeFood.observe(this) {
             getFoodList = it
         }
 
         binding.pickBtn.setOnClickListener {
-            if(checkList.isEmpty()) {
+            if (checkList.isEmpty()) {
                 Toast.makeText(this, "한 가지는 선택해주세요.", Toast.LENGTH_SHORT).show()
             } else {
-                val random = Random()
-
-                if(getFoodList.isNotEmpty()) {
-
-                    val randomInt = random.nextInt(getFoodList.size - 1)
-                    val result = getFoodList[randomInt]
-                    val intent = Intent(applicationContext, ResultActivity::class.java)
-
-                    intent.putExtra("result", result)
-                    startActivity(intent)
-                } else {
-                    Toast.makeText(this, "데이터가 존재하지 않아요.\n다른 종류를 선택해주세요.", Toast.LENGTH_SHORT).show()
-                }
+                val intent = Intent(applicationContext, ResultActivity::class.java)
+                intent.putStringArrayListExtra("checkList", checkList)
+                startActivity(intent)
             }
         }
 
@@ -98,7 +85,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-    
+
     override fun onDestroy() {
         job.cancel()
         super.onDestroy()
