@@ -15,8 +15,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="name"
-                android:textColor="@color/black"
-                android:textSize="15sp"/>
+                android:textColor="@color/main"
+                android:fontFamily="@font/context"
+                android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/item_price"
@@ -24,8 +25,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="price"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textColor="@color/main"
+                android:fontFamily="@font/context"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/item_empty"

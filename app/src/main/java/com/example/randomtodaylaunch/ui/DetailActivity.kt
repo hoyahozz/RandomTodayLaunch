@@ -25,21 +25,20 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val fname = intent.getStringExtra("fname").toString()
+        val adapter = MenuAdapter()
+
+        binding.rcvMenu.apply {
+            this.adapter = adapter
+            this.layoutManager = LinearLayoutManager(context)
+            this.addItemDecoration(RecyclerViewDecoration(5))
+        }
 
         viewModel.getMenuList(fname)
 
         viewModel.menuList.observe(this) {
-            menuList = it
-
-            if (menuList.isEmpty()) {
+            adapter.submitList(it)
+            if (it.isEmpty()) {
                 Toast.makeText(this, "메뉴가 등록되어 있지 않아요 😭", Toast.LENGTH_SHORT).show()
-            } else {
-                val adapter = MenuAdapter(menuList)
-                binding.rcvMenu.apply {
-                    this.adapter = adapter
-                    this.layoutManager = LinearLayoutManager(context)
-                    this.addItemDecoration(RecyclerViewDecoration(5))
-                }
             }
         }
     }

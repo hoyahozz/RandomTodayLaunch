@@ -10,11 +10,19 @@ import com.example.randomtodaylaunch.databinding.ItemMenuListBinding
 import com.example.randomtodaylaunch.model.MenuEntity
 
 /* 상세 화면의 메뉴 리스트 어댑터  */
-class MenuAdapter(private val menu : List<MenuEntity>) : RecyclerView.Adapter<MenuAdapter.ListViewHolder>(){
+class MenuAdapter() : RecyclerView.Adapter<MenuAdapter.ListViewHolder>(){
+
+    private val menu = arrayListOf<MenuEntity>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val binding = ItemMenuListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ListViewHolder(binding)
+    }
+
+    fun submitList(menu : List<MenuEntity>) {
+        this.menu.clear()
+        this.menu.addAll(menu)
+        notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {

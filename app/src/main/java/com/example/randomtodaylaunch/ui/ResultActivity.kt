@@ -38,12 +38,39 @@ class ResultActivity : AppCompatActivity() {
         var randomInt: Int
         lateinit var result: FoodEntity
 
+
+        val animation = AnimationUtils.loadAnimation(applicationContext, R.anim.shake)
+        binding.ivRotate.startAnimation(animation)
+
+        animation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(p0: Animation?) {
+                binding.rcvMenu.visibility = View.GONE
+                binding.tvTitle.visibility = View.GONE
+                binding.layoutText.visibility = View.GONE
+                binding.btnRestart.visibility = View.GONE
+                binding.btnInfo.visibility = View.GONE
+                binding.btnRedecide.visibility = View.GONE
+            }
+
+            override fun onAnimationEnd(p0: Animation?) {
+                binding.rcvMenu.visibility = View.VISIBLE
+                binding.tvTitle.visibility = View.VISIBLE
+                binding.layoutText.visibility = View.VISIBLE
+                binding.btnRestart.visibility = View.VISIBLE
+                binding.btnInfo.visibility = View.VISIBLE
+                binding.btnRedecide.visibility = View.VISIBLE
+            }
+
+            override fun onAnimationRepeat(p0: Animation?) {
+            }
+        })
+
+
         val query =
             SimpleSQLiteQuery("SELECT * FROM food WHERE type IN ('${getCheckList.joinToString("','")}')")
+
         viewModel.getFoodList(query)
-
         viewModel.typeFood.observe(this) {
-
             randomList = it as ArrayList<FoodEntity>
 
             randomInt = Random().nextInt(it.size - 1)
@@ -57,47 +84,22 @@ class ResultActivity : AppCompatActivity() {
             finish()
         }
 
-        val animation = AnimationUtils.loadAnimation(applicationContext, R.anim.rotate)
-        animation.duration = 1000
-        binding.ivRotate.startAnimation(animation)
-
-        animation.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationStart(p0: Animation?) {
-                binding.result.visibility = View.GONE
-                binding.btnRestart.visibility = View.GONE
-                binding.btnWebView.visibility = View.GONE
-                binding.btnRedecide.visibility = View.GONE
-            }
-
-            override fun onAnimationEnd(p0: Animation?) {
-                binding.result.visibility = View.VISIBLE
-                binding.btnRestart.visibility = View.VISIBLE
-                binding.btnWebView.visibility = View.VISIBLE
-                binding.btnRedecide.visibility = View.VISIBLE
-            }
-
-            override fun onAnimationRepeat(p0: Animation?) {
-            }
-        })
-
+        val adapter = MenuAdapter()
         binding.rcvMenu.addItemDecoration(RecyclerViewDecoration(10))
+        binding.rcvMenu.adapter = adapter
+        binding.rcvMenu.layoutManager = LinearLayoutManager(this)
 
         viewModel.menuList.observe(this) {
-            binding.rcvMenu.apply {
-
-                if (it.isEmpty()) {
-                    val noMenu = listOf(MenuEntity(999999, null, null, null, null))
-                    this.adapter = MenuAdapter(noMenu)
-                    this.layoutManager = LinearLayoutManager(context)
-                } else {
-                    this.adapter = MenuAdapter(it)
-                    this.layoutManager = LinearLayoutManager(context)
-                }
+            if (it.isEmpty()) {
+                val noMenu = listOf(MenuEntity(999999, null, null, null, null))
+                adapter.submitList(noMenu)
+            } else {
+                adapter.submitList(it)
             }
         }
 
         // 자세한 정보 확인하기
-        binding.btnWebView.setOnClickListener {
+        binding.btnInfo.setOnClickListener {
 
             val uri = "고척 ${result.name}"
 
@@ -117,12 +119,12 @@ class ResultActivity : AppCompatActivity() {
             if (randomList.size - 1 == 0) {
                 Toast.makeText(this, "더 이상 종류가 없어요 ㅠㅠ", Toast.LENGTH_SHORT).show()
             } else {
-                binding.ivRotate.startAnimation(animation)
                 randomInt = Random().nextInt(randomList.size - 1)
                 result = randomList[randomInt]
-
                 binding.food = result
                 result.name?.let { viewModel.getMenuList(result.name!!) }
+
+                binding.ivRotate.startAnimation(animation)
             }
             Log.d("ResultActivity", "$randomList")
         }

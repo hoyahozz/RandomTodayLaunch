@@ -13,7 +13,7 @@ interface ListDAO {
     @Query("SELECT * FROM food")
     fun getAllFood() : LiveData<List<FoodEntity>>
 
-    @Query("SELECT * FROM menu where fname = :fname")
+    @Query("SELECT * FROM menu where fname = :fname order by price ASC")
     suspend fun getMenuList(fname : String) : List<MenuEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
