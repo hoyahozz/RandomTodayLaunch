@@ -15,33 +15,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="34dp"
-            android:layout_marginTop="245dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="20dp"
             android:fontFamily="@font/context"
+            android:layout_marginBottom="20dp"
             android:text="님아 뭐 드실?"
             android:textColor="@color/main"
             android:textSize="35sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/chip_group"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.464"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.886" />
+            app:layout_constraintHorizontal_bias="0.5"/>
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chip_group"
             android:layout_width="210dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="43dp"
             app:chipSpacingHorizontal="30dp"
             app:chipSpacingVertical="5dp"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="parent"
             app:singleSelection="false">
 
             <com.google.android.material.chip.Chip
@@ -109,10 +104,10 @@
 
         <Button
             android:id="@+id/pickBtn"
-            android:layout_width="230dp"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="47dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/context"
             android:text="돌려보자"
             app:layout_constraintEnd_toEndOf="parent"

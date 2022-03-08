@@ -2,14 +2,17 @@ package com.example.randomtodaylaunch.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Point
+import android.view.Display
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.randomtodaylaunch.R
 import com.example.randomtodaylaunch.databinding.ItemListBinding
 import com.example.randomtodaylaunch.model.FoodEntity
 import com.example.randomtodaylaunch.ui.DetailActivity
+
 
 /* 음식점 리스트 어댑터 */
 class ListAdapter(private val food: List<FoodEntity>, private val context : Context) :

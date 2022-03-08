@@ -32,8 +32,6 @@ class MenuAdapter() : RecyclerView.Adapter<MenuAdapter.ListViewHolder>(){
             Log.d("Menu Adapter", "NO MENU")
             holder.name.visibility = View.GONE
             holder.price.visibility = View.GONE
-            holder.empty.text = "메뉴가 등록되어 있지 않아요 😭"
-            holder.empty.visibility = View.VISIBLE
         } else {
             holder.name.text = item.name
             holder.price.text = item.price.toString()
@@ -45,6 +43,5 @@ class MenuAdapter() : RecyclerView.Adapter<MenuAdapter.ListViewHolder>(){
     inner class ListViewHolder(binding : ItemMenuListBinding) : RecyclerView.ViewHolder(binding.root) {
         val name = binding.itemName
         val price = binding.itemPrice
-        val empty = binding.itemEmpty
     }
 }

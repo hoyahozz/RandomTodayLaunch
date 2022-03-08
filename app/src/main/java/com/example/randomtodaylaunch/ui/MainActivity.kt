@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.example.randomtodaylaunch.data.DatabaseCopier
 import com.example.randomtodaylaunch.data.FoodDataBase
@@ -30,6 +31,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -56,12 +59,6 @@ class MainActivity : AppCompatActivity() {
                     checkList.add(view.text.toString())
                 } else {
                     checkList.remove(view.text.toString())
-                }
-                if (checkList.isNotEmpty()) {
-                    Log.d(
-                        TAG,
-                        "'SELECT * FROM food WHERE type IN ('${checkList.joinToString("','")}')"
-                    )
                 }
             }
         }

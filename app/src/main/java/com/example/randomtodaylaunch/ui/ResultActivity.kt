@@ -27,61 +27,49 @@ class ResultActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityResultBinding
     private val viewModel: ListViewModel by viewModels()
+    private val TAG = "RESULT"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val getCheckList = intent.getStringArrayListExtra("checkList")!!
+        val getCheckList = intent.getStringArrayListExtra("checkList")!! // 메인에서 선택한 음식 종류
         lateinit var randomList: ArrayList<FoodEntity>
         var randomInt: Int
         lateinit var result: FoodEntity
 
-
+        // 애니메이션 설정
         val animation = AnimationUtils.loadAnimation(applicationContext, R.anim.shake)
         binding.ivRotate.startAnimation(animation)
 
         animation.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(p0: Animation?) {
-                binding.rcvMenu.visibility = View.GONE
-                binding.tvTitle.visibility = View.GONE
-                binding.layoutText.visibility = View.GONE
-                binding.btnRestart.visibility = View.GONE
-                binding.btnInfo.visibility = View.GONE
-                binding.btnRedecide.visibility = View.GONE
+                uiVisibleControl(View.INVISIBLE)
             }
 
             override fun onAnimationEnd(p0: Animation?) {
-                binding.rcvMenu.visibility = View.VISIBLE
-                binding.tvTitle.visibility = View.VISIBLE
-                binding.layoutText.visibility = View.VISIBLE
-                binding.btnRestart.visibility = View.VISIBLE
-                binding.btnInfo.visibility = View.VISIBLE
-                binding.btnRedecide.visibility = View.VISIBLE
+                uiVisibleControl(View.VISIBLE)
             }
 
-            override fun onAnimationRepeat(p0: Animation?) {
-            }
+            override fun onAnimationRepeat(p0: Animation?) {}
         })
 
+        // 종류에 따라 메뉴를 갱신하기 위한 쿼리문
+        val query = SimpleSQLiteQuery("SELECT * FROM food WHERE type IN ('${getCheckList.joinToString("','")}')")
 
-        val query =
-            SimpleSQLiteQuery("SELECT * FROM food WHERE type IN ('${getCheckList.joinToString("','")}')")
+        viewModel.getFoodList(query) // 뷰모델에서 쿼리문 실행
 
-        viewModel.getFoodList(query)
+        // 종류 갱신 후 행동
         viewModel.typeFood.observe(this) {
-            randomList = it as ArrayList<FoodEntity>
+            randomList = it as ArrayList<FoodEntity> // 랜덤 리스트 초기화
 
-            randomInt = Random().nextInt(it.size - 1)
+            randomInt = Random().nextInt(it.size - 1) // 랜덤 숫자 출력
             result = it[randomInt]
-            binding.food = result
 
-            result.name?.let { viewModel.getMenuList(result.name!!) }
-        }
-
-        binding.btnRestart.setOnClickListener {
-            finish()
+            binding.food = result // DataBinding
+            result.name?.let {
+                viewModel.getMenuList(result.name!!) } // 종류에 따른 메뉴리스트 갱신
         }
 
         val adapter = MenuAdapter()
@@ -89,12 +77,19 @@ class ResultActivity : AppCompatActivity() {
         binding.rcvMenu.adapter = adapter
         binding.rcvMenu.layoutManager = LinearLayoutManager(this)
 
+        // 종류 다시 고르기 버튼을 눌렀을 때
+        binding.btnRestart.setOnClickListener {
+            finish()
+        }
+
+        // 메뉴 리스트 옵저빙 후 조치
         viewModel.menuList.observe(this) {
-            if (it.isEmpty()) {
-                val noMenu = listOf(MenuEntity(999999, null, null, null, null))
-                adapter.submitList(noMenu)
+            adapter.submitList(it)
+
+            if (it.isEmpty()) { // 메뉴 리스트가 없으면 안내
+                binding.itemEmpty.text = "메뉴가 등록되어 있지 않아요 😭"
             } else {
-                adapter.submitList(it)
+                binding.itemEmpty.text = ""
             }
         }
 
@@ -108,7 +103,6 @@ class ResultActivity : AppCompatActivity() {
                     Intent.ACTION_VIEW,
                     Uri.parse("https://m.map.naver.com/search2/search.naver?query=${uri}&sm=hty&style=v5#/list")
                 )
-
             startActivity(intent)
         }
 
@@ -119,16 +113,25 @@ class ResultActivity : AppCompatActivity() {
             if (randomList.size - 1 == 0) {
                 Toast.makeText(this, "더 이상 종류가 없어요 ㅠㅠ", Toast.LENGTH_SHORT).show()
             } else {
+                binding.ivRotate.startAnimation(animation)
+
                 randomInt = Random().nextInt(randomList.size - 1)
                 result = randomList[randomInt]
                 binding.food = result
                 result.name?.let { viewModel.getMenuList(result.name!!) }
-
-                binding.ivRotate.startAnimation(animation)
             }
-            Log.d("ResultActivity", "$randomList")
         }
-
-
     }
+
+    // UI 일시 수정
+    fun uiVisibleControl(visibility : Int) {
+        binding.itemEmpty.visibility = visibility
+        binding.rcvMenu.visibility = visibility
+        binding.tvTitle.visibility = visibility
+        binding.layoutText.visibility = visibility
+        binding.btnRestart.visibility = visibility
+        binding.btnInfo.visibility = visibility
+        binding.btnRedecide.visibility = visibility
+    }
+
 }
