@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -17,7 +16,6 @@ import com.example.randomtodaylaunch.adapter.MenuAdapter
 import com.example.randomtodaylaunch.adapter.RecyclerViewDecoration
 import com.example.randomtodaylaunch.databinding.ActivityResultBinding
 import com.example.randomtodaylaunch.model.FoodEntity
-import com.example.randomtodaylaunch.model.MenuEntity
 import com.example.randomtodaylaunch.viewModel.ListViewModel
 import java.util.*
 import kotlin.collections.ArrayList
@@ -27,7 +25,6 @@ class ResultActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityResultBinding
     private val viewModel: ListViewModel by viewModels()
-    private val TAG = "RESULT"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

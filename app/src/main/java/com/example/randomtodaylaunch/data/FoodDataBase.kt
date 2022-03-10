@@ -1,5 +1,8 @@
 package com.example.randomtodaylaunch.data
 
+import android.content.pm.PackageInfo
+import android.util.Log
+import androidx.core.content.pm.PackageInfoCompat
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
@@ -24,8 +27,8 @@ abstract class FoodDataBase : RoomDatabase() {
         // 1_2 -> 1버전에서 2버전으로 감 (DB를 외부에서 가져올 경우 코드 자체에서 만든 DB가 1버전, 외부에서 가져온 DB가 2버전이 됨
         val MIGRATION_1_2 : Migration = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
+                Log.d("1_2", "migrate: ON")
                 // 버전 업그레이드 시 컬럼이 추가되거나 기본키가 바뀔 때 선언하는 곳 (옮기기만 하는 것이라 지금은 상관 X)
-                TODO("Not yet implemented")
             }
         }
     }

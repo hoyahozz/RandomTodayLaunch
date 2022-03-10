@@ -2,36 +2,27 @@ package com.example.randomtodaylaunch.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.sqlite.db.SimpleSQLiteQuery
 import com.example.randomtodaylaunch.data.DatabaseCopier
 import com.example.randomtodaylaunch.data.FoodDataBase
 import com.example.randomtodaylaunch.databinding.ActivityMainBinding
-import com.example.randomtodaylaunch.model.FoodEntity
-import com.example.randomtodaylaunch.viewModel.ListViewModel
 import com.google.android.material.chip.Chip
 import kotlinx.coroutines.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 /* 초기 화면 - 메인 액티비티 */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var db: FoodDataBase
-    private lateinit var getFoodList: List<FoodEntity>
     private lateinit var job: Job
-    private val TAG = "MainActivity"
-    private val viewModel: ListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // 다크 모드 비활성화 설정
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -42,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             DatabaseCopier.copyAttachedDatabase(context = applicationContext)
         }
 
-        runBlocking {
+        runBlocking { // 시간이 오래걸리면 강제 종료
             job.join()
         }
 
@@ -63,10 +54,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.typeFood.observe(this) {
-            getFoodList = it
-        }
-
+        // 선택 버튼 눌렀을 때 행동
         binding.pickBtn.setOnClickListener {
             if (checkList.isEmpty()) {
                 Toast.makeText(this, "한 가지는 선택해주세요.", Toast.LENGTH_SHORT).show()
@@ -77,10 +65,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.listBtn.setOnClickListener {
-            val intent = Intent(applicationContext, ListActivity::class.java)
-            startActivity(intent)
-        }
+//        binding.listBtn.setOnClickListener {
+//            val intent = Intent(applicationContext, ListActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 
     override fun onDestroy() {

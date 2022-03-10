@@ -29,13 +29,6 @@ class ListAdapter(private val food: List<FoodEntity>, private val context : Cont
         holder.name.text = item.name
         holder.type.text = item.type
 
-        // 이미지
-        if (item.name == "한솥도시락") {
-            holder.image.setImageResource(R.drawable.hansol)
-        } else {
-            holder.image.setImageResource(0)
-        }
-
         holder.container.setOnClickListener {
             val intent = Intent(context, DetailActivity::class.java)
             intent.putExtra("fname", item.name)
@@ -46,7 +39,6 @@ class ListAdapter(private val food: List<FoodEntity>, private val context : Cont
     override fun getItemCount(): Int = food.size
 
     inner class ListViewHolder(binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root) {
-        val image = binding.itemImage
         val name = binding.itemName
         val type = binding.itemType
         val container = binding.itemContainer

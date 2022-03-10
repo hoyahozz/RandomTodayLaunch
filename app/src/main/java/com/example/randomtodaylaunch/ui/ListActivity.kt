@@ -7,10 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.randomtodaylaunch.adapter.ListAdapter
 import com.example.randomtodaylaunch.adapter.RecyclerViewDecoration
 import com.example.randomtodaylaunch.databinding.ActivityListBinding
-import com.example.randomtodaylaunch.model.FoodEntity
 import com.example.randomtodaylaunch.viewModel.ListViewModel
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+
 
 /* 음식점 리스트 액티비티 */
 class ListActivity : AppCompatActivity() {
