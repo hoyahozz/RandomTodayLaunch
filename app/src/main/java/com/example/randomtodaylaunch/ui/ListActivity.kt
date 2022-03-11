@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.randomtodaylaunch.adapter.ListAdapter
-import com.example.randomtodaylaunch.adapter.RecyclerViewDecoration
+import com.example.randomtodaylaunch.util.RecyclerViewDecoration
 import com.example.randomtodaylaunch.databinding.ActivityListBinding
 import com.example.randomtodaylaunch.viewModel.ListViewModel
 

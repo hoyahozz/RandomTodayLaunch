@@ -1,4 +1,4 @@
-package com.example.randomtodaylaunch.adapter
+package com.example.randomtodaylaunch.util
 
 import android.graphics.Rect
 import android.view.View

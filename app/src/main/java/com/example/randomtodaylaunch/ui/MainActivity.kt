@@ -65,6 +65,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // 아무거나 버튼 눌렀을 때 행동
+        binding.anyBtn.setOnClickListener {
+            val allList = arrayListOf("한식","중식","일식","양식","분식","치킨","술집")
+            val intent = Intent(applicationContext, ResultActivity::class.java)
+            intent.putStringArrayListExtra("checkList", allList)
+            startActivity(intent)
+        }
+
 //        binding.listBtn.setOnClickListener {
 //            val intent = Intent(applicationContext, ListActivity::class.java)
 //            startActivity(intent)

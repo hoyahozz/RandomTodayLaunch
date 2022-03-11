@@ -5,15 +5,9 @@
     tools:context=".ui.ResultActivity">
 
     <data>
-
-        <variable
-            name="result"
-            type="java.lang.String" />
-
         <variable
             name="food"
             type="com.example.randomtodaylaunch.model.FoodEntity" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

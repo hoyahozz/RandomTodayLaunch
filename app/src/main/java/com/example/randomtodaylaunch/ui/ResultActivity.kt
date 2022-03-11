@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.example.randomtodaylaunch.R
 import com.example.randomtodaylaunch.adapter.MenuAdapter
-import com.example.randomtodaylaunch.adapter.RecyclerViewDecoration
+import com.example.randomtodaylaunch.util.RecyclerViewDecoration
 import com.example.randomtodaylaunch.databinding.ActivityResultBinding
 import com.example.randomtodaylaunch.model.FoodEntity
 import com.example.randomtodaylaunch.viewModel.ListViewModel
@@ -92,7 +92,6 @@ class ResultActivity : AppCompatActivity() {
 
         // 자세한 정보 확인하기
         binding.btnInfo.setOnClickListener {
-
             val uri = "고척 ${result.name}"
 
             val intent =
@@ -109,13 +108,13 @@ class ResultActivity : AppCompatActivity() {
 
             if (randomList.size - 1 == 0) {
                 Toast.makeText(this, "더 이상 종류가 없어요 ㅠㅠ", Toast.LENGTH_SHORT).show()
-            } else {
+            } else { // 애니메이션과 함께 다시 데이터 분석
                 binding.ivRotate.startAnimation(animation)
 
                 randomInt = Random().nextInt(randomList.size - 1)
                 result = randomList[randomInt]
-                binding.food = result
-                result.name?.let { viewModel.getMenuList(result.name!!) }
+                binding.food = result // Data Binding
+                result.name?.let { viewModel.getMenuList(it) }
             }
         }
     }

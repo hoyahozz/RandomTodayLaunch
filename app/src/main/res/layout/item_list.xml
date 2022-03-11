@@ -4,6 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.ListActivity">
 
+    <data>
+        <variable
+            name="food"
+            type="com.example.randomtodaylaunch.model.FoodEntity" />
+
+    </data>
+
     <LinearLayout
         android:id="@+id/item_container"
         android:layout_width="match_parent"
@@ -20,7 +27,8 @@
                 android:id="@+id/item_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="name"
+                android:hint="name"
+                android:text="@{food.name}"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 
@@ -28,7 +36,8 @@
                 android:id="@+id/item_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="type"
+                android:hint="type"
+                android:text="@{food.type}"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 
