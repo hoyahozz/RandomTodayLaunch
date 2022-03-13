@@ -73,10 +73,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-//        binding.listBtn.setOnClickListener {
-//            val intent = Intent(applicationContext, ListActivity::class.java)
-//            startActivity(intent)
-//        }
+        // 리스트 보기 버튼 눌렀을 때 행동
+        binding.listBtn.setOnClickListener {
+            val intent = Intent(applicationContext, ListActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onDestroy() {

@@ -15,28 +15,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:fontFamily="@font/context"
             android:layout_marginBottom="20dp"
+            android:fontFamily="@font/context"
             android:text="님아 뭐 드실?"
             android:textColor="@color/main"
             android:textSize="35sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/chip_group"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/context"
-            android:textSize="8sp"
-            android:text="음식점 사정에 따라 메뉴, 가격등이 변동될 수 있으니 유의해주세요."
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chip_group"
@@ -44,9 +32,9 @@
             android:layout_height="wrap_content"
             app:chipSpacingHorizontal="30dp"
             app:chipSpacingVertical="5dp"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:singleSelection="false">
@@ -159,19 +147,29 @@
             app:layout_constraintTop_toBottomOf="@+id/pickBtn" />
 
 
+        <Button
+            android:id="@+id/listBtn"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/context"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            android:text="어떤게 있을까?"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/anyBtn" />
 
-
-        <!--        <Button-->
-<!--            android:id="@+id/listBtn"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:fontFamily="@font/context"-->
-<!--            android:text="어떤게 있을까?"-->
-<!--            android:visibility="gone"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.498"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            tools:layout_editor_absoluteY="667dp" />-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/context"
+            android:text="음식점 사정에 따라 메뉴, 가격등이 변동될 수 있으니 유의해주세요."
+            android:textSize="8sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/anyBtn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

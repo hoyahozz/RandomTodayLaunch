@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="main">#A3000000</color>
+    <color name="primary">#4354F1</color>
 
     <drawable name="item_background_p">#eaeaea</drawable>
     <drawable name="item_background_n">#cfcfcf</drawable>

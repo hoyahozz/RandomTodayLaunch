@@ -2,6 +2,7 @@ package com.example.randomtodaylaunch.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.randomtodaylaunch.adapter.ListAdapter
@@ -23,11 +24,14 @@ class ListActivity : AppCompatActivity() {
         binding = ActivityListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        adapter = ListAdapter(this)
+        binding.listRcv.adapter = adapter
+        binding.listRcv.layoutManager = LinearLayoutManager(this)
+        binding.listRcv.addItemDecoration(RecyclerViewDecoration(5))
+
         viewModel.allFood.observe(this) {
-            adapter = ListAdapter(it, this)
-            binding.listRcv.adapter = adapter
-            binding.listRcv.layoutManager = LinearLayoutManager(this)
-            binding.listRcv.addItemDecoration(RecyclerViewDecoration(5))
+            Log.d("ListAct", "$it")
+            adapter.submitList(it)
         }
     }
 }

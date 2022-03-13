@@ -16,9 +16,7 @@ class ListViewModel : ViewModel() {
 
     private val listDAO : ListDAO = DatabaseCopier.INSTANCE!!.listDAO()
 
-    val allFood : LiveData<List<FoodEntity>> by lazy {
-        listDAO.getAllFood()
-    }
+    val allFood : LiveData<List<FoodEntity>> = listDAO.getAllFood()
 
     private val _typeFood = MutableLiveData<List<FoodEntity>>()
     val typeFood : LiveData<List<FoodEntity>> get() = _typeFood
@@ -26,17 +24,17 @@ class ListViewModel : ViewModel() {
     private val _menuList = MutableLiveData<List<MenuEntity>>()
     val menuList : LiveData<List<MenuEntity>> get() = _menuList
 
-    fun getMenuList(fname : String) {
-        viewModelScope.launch {
-            val tmp : List<MenuEntity> = listDAO.getMenuList(fname)
-            _menuList.postValue(tmp)
-        }
-    }
-
-    fun getFoodList(query: SimpleSQLiteQuery) {
+    fun getFoodList(query: SimpleSQLiteQuery) { // 음식점 리스트
         viewModelScope.launch {
             val tmp : List<FoodEntity> = listDAO.getFood(query)
             _typeFood.postValue(tmp)
+        }
+    }
+
+    fun getMenuList(fname : String) { // 메뉴 리스트
+        viewModelScope.launch {
+            val tmp : List<MenuEntity> = listDAO.getMenuList(fname)
+            _menuList.postValue(tmp)
         }
     }
 

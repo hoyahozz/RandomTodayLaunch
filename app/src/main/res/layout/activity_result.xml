@@ -15,6 +15,24 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                style="@style/Widget.AppCompat.Toolbar"
+                app:titleTextColor="@color/white"
+                app:titleTextAppearance="@style/AppBarFont"
+                app:navigationIcon="@drawable/ic_back"
+                app:title="@string/app_name" />
+        </com.google.android.material.appbar.AppBarLayout>
+
         <ImageView
             android:id="@+id/ivRotate"
             android:layout_width="260dp"
@@ -105,14 +123,11 @@
 
         <Button
             android:id="@+id/btnRedecide"
-            android:layout_width="180dp"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="21dp"
-            android:background="#00ff0000"
-            android:textColor="@color/main"
+            android:layout_marginTop="25dp"
             android:fontFamily="@font/context"
             android:text="이거 말고"
-            android:textStyle="bold"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -120,33 +135,15 @@
 
         <Button
             android:id="@+id/btnInfo"
-            android:layout_width="wrap_content"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/context"
-            android:background="#00ff0000"
-            android:textColor="@color/main"
             android:text="자세히 보자"
-            android:textStyle="bold"
+            android:layout_marginTop="10dp"
             android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnRedecide" />
-
-        <Button
-            android:id="@+id/btnRestart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#00ff0000"
-            android:textColor="@color/main"
-            android:fontFamily="@font/context"
-            android:text="종류 다시 정할래"
-            android:textStyle="bold"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnInfo" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 

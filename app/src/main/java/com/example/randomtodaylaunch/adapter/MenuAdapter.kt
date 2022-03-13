@@ -30,9 +30,7 @@ class MenuAdapter : RecyclerView.Adapter<MenuAdapter.ListViewHolder>() {
 
     override fun getItemCount(): Int = menu.size
 
-    inner class ListViewHolder(private val binding: ItemMenuListBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
+    inner class ListViewHolder(private val binding: ItemMenuListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(item: MenuEntity) {
             binding.item = item
         }
