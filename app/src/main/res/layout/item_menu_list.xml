@@ -7,7 +7,7 @@
     <data>
         <variable
             name="item"
-            type="com.example.randomtodaylaunch.model.MenuEntity" />
+            type="com.hoya.randomtodaylaunch.model.MenuEntity" />
 
     </data>
 
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        tools:context=".ui.ListActivity">
+        tools:context="com.hoya.randomtodaylaunch.ui.ListActivity">
 
         <TextView
             android:id="@+id/item_name"

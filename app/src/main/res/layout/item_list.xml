@@ -2,12 +2,12 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.ListActivity">
+    tools:context="com.hoya.randomtodaylaunch.ui.ListActivity">
 
     <data>
         <variable
             name="food"
-            type="com.example.randomtodaylaunch.model.FoodEntity" />
+            type="com.hoya.randomtodaylaunch.model.FoodEntity" />
 
     </data>
 

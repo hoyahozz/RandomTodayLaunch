@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.randomtodaylaunch">
+    package="com.hoya.randomtodaylaunch">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -15,16 +15,16 @@
         android:theme="@style/Theme.RandomTodayLaunch"
         tools:targetApi="n">
         <activity
-            android:name=".ui.DetailActivity"
+            android:name="com.hoya.randomtodaylaunch.ui.DetailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.ListActivity"
+            android:name="com.hoya.randomtodaylaunch.ui.ListActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.ResultActivity"
+            android:name="com.hoya.randomtodaylaunch.ui.ResultActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name="com.hoya.randomtodaylaunch.ui.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.RandomTodayLaunch.NoActionBar">

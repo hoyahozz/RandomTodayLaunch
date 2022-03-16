@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.ResultActivity">
+    tools:context="com.hoya.randomtodaylaunch.ui.ResultActivity">
 
     <data>
         <variable
             name="food"
-            type="com.example.randomtodaylaunch.model.FoodEntity" />
+            type="com.hoya.randomtodaylaunch.model.FoodEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
