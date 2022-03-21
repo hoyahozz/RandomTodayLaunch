@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
@@ -46,6 +47,7 @@ class ResultActivity : AppCompatActivity() {
         lateinit var randomList: ArrayList<FoodEntity>
         var randomInt: Int
         lateinit var result: FoodEntity
+        lateinit var uri : String // 고척 {음식점이름}
 
 
         // 애니메이션 설정
@@ -80,6 +82,7 @@ class ResultActivity : AppCompatActivity() {
             binding.food = result // DataBinding
             result.name?.let {
                 viewModel.getMenuList(result.name!!)
+                uri = "고척 ${result.name}"
             } // 종류에 따른 메뉴리스트 갱신
         }
 
@@ -101,7 +104,7 @@ class ResultActivity : AppCompatActivity() {
 
         // 자세한 정보 확인하기
         binding.btnInfo.setOnClickListener {
-            val uri = "고척 ${result.name}" // 고척 {음식점이름}
+            Log.d("Result", uri)
 
             val intent =
                 Intent(
@@ -138,7 +141,7 @@ class ResultActivity : AppCompatActivity() {
                 randomInt = Random().nextInt(randomList.size - 1)
                 result = randomList[randomInt]
                 binding.food = result // Data Binding
-                result.name?.let { viewModel.getMenuList(it) }
+                uri = "고척 ${result.name}"
             }
         }
     }
