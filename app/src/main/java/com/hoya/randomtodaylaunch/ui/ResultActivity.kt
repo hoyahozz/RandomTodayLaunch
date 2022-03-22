@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
@@ -47,7 +46,6 @@ class ResultActivity : AppCompatActivity() {
         lateinit var randomList: ArrayList<FoodEntity>
         var randomInt: Int
         lateinit var result: FoodEntity
-        lateinit var uri : String // 고척 {음식점이름}
 
 
         // 애니메이션 설정
@@ -82,7 +80,6 @@ class ResultActivity : AppCompatActivity() {
             binding.food = result // DataBinding
             result.name?.let {
                 viewModel.getMenuList(result.name!!)
-                uri = "고척 ${result.name}"
             } // 종류에 따른 메뉴리스트 갱신
         }
 
@@ -104,7 +101,7 @@ class ResultActivity : AppCompatActivity() {
 
         // 자세한 정보 확인하기
         binding.btnInfo.setOnClickListener {
-            Log.d("Result", uri)
+            val uri = "고척 ${result.name}"
 
             val intent =
                 Intent(
@@ -114,34 +111,26 @@ class ResultActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        var isEmptyRandomList: Boolean = false // 랜덤 리스트에 하나밖에 존재하지 않을 때 true
-
         // 빼고 다시돌리기
         binding.btnRedecide.setOnClickListener {
+
             randomList.remove(result)
 
-            if (randomList.size - 1 == 0) { // 리스트에 하나밖에 존재하지 않을 경우
-                if (isEmptyRandomList) {
-                    val snackBar = Snackbar.make(it, "더 이상 종류가 없어요!", Snackbar.LENGTH_SHORT)
-                    setSnackBarOption(snackBar)
-                    snackBar.show()
+            if (randomList.size == 0) { // 더 이상 종류가 없을 경우
 
-                    return@setOnClickListener
-                }
+                val snackBar = Snackbar.make(it, "더 이상 종류가 없어요!", Snackbar.LENGTH_SHORT)
+                setSnackBarOption(snackBar)
+                snackBar.show()
 
-                // 리스트에 하나밖에 없을 때, 일단 남은 리스트를 유저에게 제공해준다.
-                binding.ivRotate.startAnimation(animation)
-                binding.food = randomList[0]
-                viewModel.getMenuList(randomList[0].name!!)
-                isEmptyRandomList = true // 리스트가 남아있지 않으니 랜덤 리스트 추가 제공 X
+                return@setOnClickListener
+            }
+            else { // 애니메이션과 함께 다시 데이터 분석
 
-            } else { // 애니메이션과 함께 다시 데이터 분석
                 binding.ivRotate.startAnimation(animation)
 
-                randomInt = Random().nextInt(randomList.size - 1)
+                randomInt = Random().nextInt(randomList.size)
                 result = randomList[randomInt]
                 binding.food = result // Data Binding
-                uri = "고척 ${result.name}"
             }
         }
     }
@@ -184,8 +173,10 @@ class ResultActivity : AppCompatActivity() {
     private fun setSnackBarOption(snackBar: Snackbar) {
         snackBar.animationMode = ANIMATION_MODE_SLIDE
         val snackBarView = snackBar.view
-        val snackBarText = snackBarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
-        val snackBarLayout : FrameLayout.LayoutParams = snackBarView.layoutParams as FrameLayout.LayoutParams
+        val snackBarText =
+            snackBarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+        val snackBarLayout: FrameLayout.LayoutParams =
+            snackBarView.layoutParams as FrameLayout.LayoutParams
         snackBarLayout.gravity = Gravity.CENTER_HORIZONTAL or Gravity.BOTTOM
         snackBarLayout.width = 800
         snackBarLayout.height = 130

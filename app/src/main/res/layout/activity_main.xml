@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -34,7 +33,7 @@
             app:chipSpacingVertical="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintVertical_bias="0.45"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:singleSelection="false">
@@ -146,18 +145,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pickBtn" />
 
-
-        <Button
-            android:id="@+id/listBtn"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/context"
-            android:layout_marginTop="10dp"
-            android:visibility="gone"
-            android:text="어떤게 있을까?"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/anyBtn" />
+<!--        <Button-->
+<!--            android:id="@+id/listBtn"-->
+<!--            android:layout_width="220dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/context"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:visibility="visible"-->
+<!--            android:text="전체보기"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/anyBtn" />-->
 
         <TextView
             android:layout_width="wrap_content"

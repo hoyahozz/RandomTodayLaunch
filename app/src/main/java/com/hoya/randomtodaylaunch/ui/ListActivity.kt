@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.core.view.marginTop
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hoya.randomtodaylaunch.adapter.ListAdapter
 import com.hoya.randomtodaylaunch.util.RecyclerViewDecoration
@@ -12,6 +13,9 @@ import com.hoya.randomtodaylaunch.viewModel.ListViewModel
 
 
 /* 음식점 리스트 액티비티 */
+/* TODO :: 타입 별로 음식 리스트 볼 수 있게 설정하기
+*  TODO :: 뷰페이저를 활용해서 메뉴별로 볼 수 있게
+* */
 class ListActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityListBinding
@@ -25,9 +29,12 @@ class ListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         adapter = ListAdapter(this)
-        binding.listRcv.adapter = adapter
-        binding.listRcv.layoutManager = LinearLayoutManager(this)
-        binding.listRcv.addItemDecoration(RecyclerViewDecoration(5))
+
+        binding.listRcv.apply {
+            this.adapter = this@ListActivity.adapter
+            this.layoutManager = LinearLayoutManager(this@ListActivity)
+            this.addItemDecoration(RecyclerViewDecoration(15))
+        }
 
         viewModel.allFood.observe(this) {
             Log.d("ListAct", "$it")

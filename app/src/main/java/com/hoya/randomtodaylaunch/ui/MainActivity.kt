@@ -1,8 +1,13 @@
 package com.hoya.randomtodaylaunch.ui
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
+import android.widget.FrameLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -10,6 +15,8 @@ import com.hoya.randomtodaylaunch.data.DatabaseCopier
 import com.hoya.randomtodaylaunch.data.FoodDataBase
 import com.hoya.randomtodaylaunch.databinding.ActivityMainBinding
 import com.google.android.material.chip.Chip
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.*
 
 /* 초기 화면 - 메인 액티비티 */
@@ -57,7 +64,9 @@ class MainActivity : AppCompatActivity() {
         // 선택 버튼 눌렀을 때 행동
         binding.pickBtn.setOnClickListener {
             if (checkList.isEmpty()) {
-                Toast.makeText(this, "한 가지는 선택해주세요.", Toast.LENGTH_SHORT).show()
+                val snackBar = Snackbar.make(it, "한 가지 종류는 골라주세요!", Snackbar.LENGTH_SHORT)
+                setSnackBarOption(snackBar)
+                snackBar.show()
             } else {
                 val intent = Intent(applicationContext, ResultActivity::class.java)
                 intent.putStringArrayListExtra("checkList", checkList)
@@ -73,15 +82,31 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // 리스트 보기 버튼 눌렀을 때 행동
-        binding.listBtn.setOnClickListener {
-            val intent = Intent(applicationContext, ListActivity::class.java)
-            startActivity(intent)
-        }
+        // TODO :: 리스트 보기 버튼 눌렀을 때 행동
+//        binding.listBtn.setOnClickListener {
+//            val intent = Intent(applicationContext, ListActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 
     override fun onDestroy() {
         job.cancel()
         super.onDestroy()
+    }
+
+    // 스낵바 옵션 설정
+    private fun setSnackBarOption(snackBar: Snackbar) {
+        snackBar.animationMode = BaseTransientBottomBar.ANIMATION_MODE_SLIDE
+        val snackBarView = snackBar.view
+        val snackBarText =
+            snackBarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+        val snackBarLayout: FrameLayout.LayoutParams =
+            snackBarView.layoutParams as FrameLayout.LayoutParams
+        snackBarLayout.gravity = Gravity.CENTER_HORIZONTAL or Gravity.BOTTOM
+        snackBarLayout.width = 800
+        snackBarLayout.height = 130
+        snackBarText.textAlignment = View.TEXT_ALIGNMENT_CENTER
+        snackBarText.typeface = Typeface.createFromAsset(this.assets, "context.ttf")
+        snackBarView.setBackgroundColor(Color.parseColor("#4354F1"))
     }
 }

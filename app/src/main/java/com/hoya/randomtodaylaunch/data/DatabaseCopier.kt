@@ -27,36 +27,28 @@ object DatabaseCopier {
                     .build()
             }
         } else {
-            Log.d(TAG, "getInstance: INSTANCE NOT NULL")
+            Log.e(TAG, "getInstance: INSTANCE NOT NULL")
         }
         return INSTANCE
     }
 
     // assets -> App / Database
     fun copyAttachedDatabase(context: Context) {
-        Log.d(TAG, "db 카피 함수 호출")
         val dbPath = context.getDatabasePath(DB_NAME)
-        Log.d(TAG, dbPath.toString())
 
         // db 파일 있으면
         if (dbPath.exists()) {
-            Log.d(TAG, "db 카피 이미 존재")
 
             val info: PackageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
             val version = PackageInfoCompat.getLongVersionCode(info)
 
-            Log.d(TAG, "Version :: $version")
-
-
             // 버전 관리 (계속 변경)
             if (version.toString() != "1"){
-                Log.d(TAG, "$version :: 버전 코드 다름!")
+                Log.w(TAG, "$version :: 버전 코드 다름!")
                 copyDB(context, dbPath)
             }
             return
         }
-
-        Log.d(TAG, "db 카피 존재 x")
 
         // 폴더 만들어주기
         dbPath.parentFile.mkdirs()
@@ -82,7 +74,7 @@ object DatabaseCopier {
             output.close()
             inputStream.close()
         } catch (e : IOException) {
-            Log.d(TAG, "copyDB: 실패!", e)
+            Log.e(TAG, "copyDB: 실패!", e)
             e.printStackTrace()
         }
     }
