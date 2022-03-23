@@ -145,17 +145,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pickBtn" />
 
-<!--        <Button-->
-<!--            android:id="@+id/listBtn"-->
-<!--            android:layout_width="220dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:fontFamily="@font/context"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:visibility="visible"-->
-<!--            android:text="전체보기"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/anyBtn" />-->
+        <Button
+            android:id="@+id/listBtn"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/context"
+            android:layout_marginTop="10dp"
+            android:visibility="visible"
+            android:text="전체보기"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/anyBtn" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -167,7 +167,7 @@
             android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/anyBtn" />
+            app:layout_constraintTop_toBottomOf="@+id/listBtn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

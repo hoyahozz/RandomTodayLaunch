@@ -6,9 +6,11 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.view.marginTop
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ahmadhamwi.tabsync.TabbedListMediator
 import com.hoya.randomtodaylaunch.adapter.ListAdapter
 import com.hoya.randomtodaylaunch.util.RecyclerViewDecoration
 import com.hoya.randomtodaylaunch.databinding.ActivityListBinding
+import com.hoya.randomtodaylaunch.model.FoodEntity
 import com.hoya.randomtodaylaunch.viewModel.ListViewModel
 
 
@@ -18,9 +20,9 @@ import com.hoya.randomtodaylaunch.viewModel.ListViewModel
 * */
 class ListActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityListBinding
-    private val viewModel : ListViewModel by viewModels()
-    private lateinit var adapter : ListAdapter
+    private lateinit var binding: ActivityListBinding
+    private val viewModel: ListViewModel by viewModels()
+    private lateinit var adapter: ListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,9 +38,18 @@ class ListActivity : AppCompatActivity() {
             this.addItemDecoration(RecyclerViewDecoration(15))
         }
 
-        viewModel.allFood.observe(this) {
-            Log.d("ListAct", "$it")
-            adapter.submitList(it)
+
+        viewModel.allFood.observe(this) { list ->
+            Log.d("ListAct", "$list")
+
+            // 탭 래이아웃 아이템 추가
+            for (i in list.distinctBy { it.type }) {
+                binding.tabLayout.addTab(binding.tabLayout.newTab().setText(i.type))
+            }
+
+            adapter.submitList(list)
         }
     }
+
+
 }
