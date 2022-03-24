@@ -151,7 +151,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/context"
             android:layout_marginTop="10dp"
-            android:visibility="gone"
+            android:visibility="visible"
             android:text="전체보기"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -167,7 +167,7 @@
             android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/anyBtn" />
+            app:layout_constraintTop_toBottomOf="@+id/listBtn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

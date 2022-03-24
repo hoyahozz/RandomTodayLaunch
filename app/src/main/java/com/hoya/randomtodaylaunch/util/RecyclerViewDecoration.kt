@@ -13,6 +13,7 @@ class RecyclerViewDecoration(private val height: Int) : RecyclerView.ItemDecorat
         parent: RecyclerView,
         state: RecyclerView.State
     ) {
+        outRect.top = height
         outRect.bottom = height
     }
 }

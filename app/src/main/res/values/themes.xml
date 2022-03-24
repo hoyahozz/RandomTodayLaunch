@@ -26,7 +26,7 @@
 `
     <style name="AppBarFont" parent="TextAppearance.MaterialComponents.Headline6">
         <item name="fontFamily">@font/context</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">17sp</item>
     </style>
 
     <style name="TabLayoutFont" parent="@android:style/TextAppearance.Widget.TabWidget">
