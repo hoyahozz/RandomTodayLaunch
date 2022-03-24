@@ -36,14 +36,17 @@ object DatabaseCopier {
     fun copyAttachedDatabase(context: Context) {
         val dbPath = context.getDatabasePath(DB_NAME)
 
+
         // db 파일 있으면
         if (dbPath.exists()) {
 
             val info: PackageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
             val version = PackageInfoCompat.getLongVersionCode(info)
 
+            Log.w(TAG, "Version :: $version")
+
             // 버전 관리 (계속 변경)
-            if (version.toString() != "1"){
+            if (version.toString() != "4"){
                 Log.w(TAG, "$version :: 버전 코드 다름!")
                 copyDB(context, dbPath)
             }

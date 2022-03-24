@@ -112,13 +112,13 @@ class ResultActivity : AppCompatActivity() {
         }
 
         // 빼고 다시돌리기
-        binding.btnRedecide.setOnClickListener {
+        binding.btnRedecide.setOnClickListener { list ->
 
             randomList.remove(result)
 
             if (randomList.size == 0) { // 더 이상 종류가 없을 경우
 
-                val snackBar = Snackbar.make(it, "더 이상 종류가 없어요!", Snackbar.LENGTH_SHORT)
+                val snackBar = Snackbar.make(list, "더 이상 종류가 없어요!", Snackbar.LENGTH_SHORT)
                 setSnackBarOption(snackBar)
                 snackBar.show()
 
@@ -131,6 +131,7 @@ class ResultActivity : AppCompatActivity() {
                 randomInt = Random().nextInt(randomList.size)
                 result = randomList[randomInt]
                 binding.food = result // Data Binding
+                result.name.let { viewModel.getMenuList(it!!)}
             }
         }
     }
@@ -178,8 +179,9 @@ class ResultActivity : AppCompatActivity() {
         val snackBarLayout: FrameLayout.LayoutParams =
             snackBarView.layoutParams as FrameLayout.LayoutParams
         snackBarLayout.gravity = Gravity.CENTER_HORIZONTAL or Gravity.BOTTOM
-        snackBarLayout.width = 800
-        snackBarLayout.height = 130
+        snackBarLayout.bottomMargin = 10
+        snackBarLayout.width = 650
+        snackBarLayout.height = 120
         snackBarText.textAlignment = View.TEXT_ALIGNMENT_CENTER
         snackBarText.typeface = Typeface.createFromAsset(this.assets, "context.ttf")
         snackBarView.setBackgroundColor(Color.parseColor("#4354F1"))

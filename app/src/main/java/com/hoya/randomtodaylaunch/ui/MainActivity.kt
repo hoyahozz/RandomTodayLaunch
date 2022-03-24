@@ -103,8 +103,8 @@ class MainActivity : AppCompatActivity() {
         val snackBarLayout: FrameLayout.LayoutParams =
             snackBarView.layoutParams as FrameLayout.LayoutParams
         snackBarLayout.gravity = Gravity.CENTER_HORIZONTAL or Gravity.BOTTOM
-        snackBarLayout.width = 800
-        snackBarLayout.height = 130
+        snackBarLayout.width = 650
+        snackBarLayout.height = 120
         snackBarText.textAlignment = View.TEXT_ALIGNMENT_CENTER
         snackBarText.typeface = Typeface.createFromAsset(this.assets, "context.ttf")
         snackBarView.setBackgroundColor(Color.parseColor("#4354F1"))
