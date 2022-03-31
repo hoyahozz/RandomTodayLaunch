@@ -46,7 +46,7 @@ object DatabaseCopier {
             Log.w(TAG, "Version :: $version")
 
             // 버전 관리 (계속 변경)
-            if (version.toString() != "4"){
+            if (version.toString() != "5"){
                 Log.w(TAG, "$version :: 버전 코드 다름!")
                 copyDB(context, dbPath)
             }

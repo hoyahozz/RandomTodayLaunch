@@ -18,23 +18,10 @@ class MenuDialog(
     private val fName : String
 ) : DialogFragment() {
 
-
-//    private val viewModel = ViewModelProvider(this)[ListViewModel::class.java]
-
     private val viewModel : ListViewModel by viewModels()
-//    private val viewModel = (requireActivity() as ListActivity).viewModel
 
     private lateinit var binding: DialogMenuBinding
     private val adapter: MenuAdapter by lazy { MenuAdapter() }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        viewModel.getMenuList(fName)
-
-        viewModel.menuList.observe(this) {
-            adapter.submitList(it)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,6 +43,12 @@ class MenuDialog(
 
         binding.closeBtn.setOnClickListener {
             dismiss()
+        }
+
+        viewModel.getMenuList(fName)
+
+        viewModel.menuList.observe(this) {
+            adapter.submitList(it)
         }
 
         binding.fName = fName
