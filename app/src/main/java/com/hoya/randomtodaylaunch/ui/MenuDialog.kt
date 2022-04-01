@@ -48,6 +48,12 @@ class MenuDialog(
         viewModel.getMenuList(fName)
 
         viewModel.menuList.observe(this) {
+            if (it.isEmpty()) { // 메뉴 리스트가 없으면 안내
+                binding.itemEmpty.text = "메뉴가 등록되어 있지 않아요 😭"
+            } else {
+                binding.itemEmpty.text = ""
+            }
+
             adapter.submitList(it)
         }
 

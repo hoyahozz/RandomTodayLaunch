@@ -18,6 +18,7 @@ object DatabaseCopier {
 
     fun getInstance(context: Context): FoodDataBase? {
         if (INSTANCE == null) {
+            Log.d(TAG, "INSTANCE NULL")
             synchronized(FoodDataBase::class) {
                 INSTANCE = Room.databaseBuilder(
                     context,
@@ -27,7 +28,7 @@ object DatabaseCopier {
                     .build()
             }
         } else {
-            Log.e(TAG, "getInstance: INSTANCE NOT NULL")
+            Log.d(TAG, "getInstance: INSTANCE NOT NULL")
         }
         return INSTANCE
     }
@@ -36,20 +37,10 @@ object DatabaseCopier {
     fun copyAttachedDatabase(context: Context) {
         val dbPath = context.getDatabasePath(DB_NAME)
 
-
-        // db 파일 있으면
+        // db 파일이 있을 때
         if (dbPath.exists()) {
-
-            val info: PackageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
-            val version = PackageInfoCompat.getLongVersionCode(info)
-
-            Log.w(TAG, "Version :: $version")
-
-            // 버전 관리 (계속 변경)
-            if (version.toString() != "5"){
-                Log.w(TAG, "$version :: 버전 코드 다름!")
-                copyDB(context, dbPath)
-            }
+            context.deleteDatabase(DB_NAME) // 기존 디비 파일 삭제
+            copyDB(context, dbPath)
             return
         }
 
@@ -61,6 +52,9 @@ object DatabaseCopier {
 
     private fun copyDB(context: Context, _dbPath : File) {
         try {
+
+            Log.w(TAG, "copyDB")
+
             val inputStream = context.assets.open("databases/$DB_NAME")
             val output = FileOutputStream(_dbPath)
 
