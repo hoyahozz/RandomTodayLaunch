@@ -135,7 +135,16 @@ class ResultActivity : AppCompatActivity() {
                 randomInt = Random().nextInt(randomList.size)
                 result = randomList[randomInt]
                 binding.food = result // Data Binding
-                result.name.let { viewModel.getMenuList(it!!) }
+                result.name.let {
+                    viewModel.getMenuList(it!!).observe(this) { list ->
+                        adapter.submitList(list)
+                        if (list.isEmpty()) { // 메뉴 리스트가 없으면 안내
+                            binding.itemEmpty.text = "메뉴가 등록되어 있지 않아요 😭"
+                        } else {
+                            binding.itemEmpty.text = ""
+                        }
+                    }
+                }
             }
         }
     }
