@@ -7,7 +7,7 @@
     <data>
         <variable
             name="item"
-            type="com.hoya.randomtodaylaunch.model.MenuEntity" />
+            type="com.hoya.randomtodaylaunch.data.entity.MenuEntity" />
 
     </data>
 

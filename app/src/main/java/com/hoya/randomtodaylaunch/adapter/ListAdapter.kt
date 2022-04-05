@@ -1,13 +1,11 @@
 package com.hoya.randomtodaylaunch.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.hoya.randomtodaylaunch.databinding.ItemListBinding
-import com.hoya.randomtodaylaunch.model.FoodEntity
-import com.hoya.randomtodaylaunch.ui.DetailActivity
+import com.hoya.randomtodaylaunch.data.entity.FoodEntity
 import com.hoya.randomtodaylaunch.ui.MenuDialog
 
 

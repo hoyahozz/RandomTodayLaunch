@@ -2,17 +2,14 @@ package com.hoya.randomtodaylaunch.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.sqlite.db.SimpleSQLiteQuery
-import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
 import com.hoya.randomtodaylaunch.R
 import com.hoya.randomtodaylaunch.adapter.ListAdapter
 import com.hoya.randomtodaylaunch.databinding.ActivityListBinding
@@ -21,13 +18,10 @@ import com.hoya.randomtodaylaunch.viewModel.ListViewModel
 
 
 /* 음식점 리스트 액티비티 */
-/* TODO :: 타입 별로 음식 리스트 볼 수 있게 설정하기
-*  TODO :: 뷰페이저를 활용해서 메뉴별로 볼 수 있게
-* */
 class ListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityListBinding
-    private val viewModel: ListViewModel by viewModels()
+    private lateinit var viewModel: ListViewModel
     private lateinit var adapter: ListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +29,9 @@ class ListActivity : AppCompatActivity() {
 
         binding = ActivityListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val viewModelFactory = ListViewModel.ListViewModelFactory()
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ListViewModel::class.java)
 
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_back)
@@ -55,9 +52,9 @@ class ListActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.typeFood.observe(this) {
-            adapter.submitList(it)
-        }
+//        viewModel.getFoodList().observe(this) {
+//            adapter.submitList(it)
+//        }
 
 
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -65,7 +62,9 @@ class ListActivity : AppCompatActivity() {
             // 클릭 뿐 아니라 스와이프로도 이벤트 발생
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val query = SimpleSQLiteQuery("SELECT * FROM food WHERE type IN ('${tab?.text.toString()}')")
-                viewModel.getFoodList(query)
+                viewModel.getFoodList(query).observe(this@ListActivity) {
+                    adapter.submitList(it)
+                }
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {

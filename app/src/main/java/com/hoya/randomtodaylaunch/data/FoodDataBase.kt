@@ -1,14 +1,12 @@
 package com.hoya.randomtodaylaunch.data
 
-import android.content.pm.PackageInfo
-import android.util.Log
-import androidx.core.content.pm.PackageInfoCompat
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.hoya.randomtodaylaunch.model.FoodEntity
-import com.hoya.randomtodaylaunch.model.MenuEntity
+import com.hoya.randomtodaylaunch.data.dao.ListDAO
+import com.hoya.randomtodaylaunch.data.entity.FoodEntity
+import com.hoya.randomtodaylaunch.data.entity.MenuEntity
 
 @Database(entities = [FoodEntity::class, MenuEntity::class], version = 2)
 abstract class FoodDataBase : RoomDatabase() {

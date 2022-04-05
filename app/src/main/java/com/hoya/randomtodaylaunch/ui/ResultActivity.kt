@@ -15,12 +15,13 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.hoya.randomtodaylaunch.R
 import com.hoya.randomtodaylaunch.adapter.MenuAdapter
 import com.hoya.randomtodaylaunch.databinding.ActivityResultBinding
-import com.hoya.randomtodaylaunch.model.FoodEntity
+import com.hoya.randomtodaylaunch.data.entity.FoodEntity
 import com.hoya.randomtodaylaunch.util.RecyclerViewDecoration
 import com.hoya.randomtodaylaunch.viewModel.ListViewModel
 import com.google.android.material.snackbar.BaseTransientBottomBar.ANIMATION_MODE_SLIDE
@@ -32,12 +33,18 @@ import java.util.*
 class ResultActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityResultBinding
-    private val viewModel: ListViewModel by viewModels()
+    private lateinit var viewModel: ListViewModel
+    private val adapter: MenuAdapter by lazy {
+        MenuAdapter()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val viewModelFactory = ListViewModel.ListViewModelFactory()
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ListViewModel::class.java)
 
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_back)
@@ -68,10 +75,9 @@ class ResultActivity : AppCompatActivity() {
         val query =
             SimpleSQLiteQuery("SELECT * FROM food WHERE type IN ('${getCheckList.joinToString("','")}')")
 
-        viewModel.getFoodList(query) // 뷰모델에서 쿼리문 실행
 
         // 종류 갱신 후 행동
-        viewModel.typeFood.observe(this) {
+        viewModel.getFoodList(query).observe(this) { it ->
             randomList = it as ArrayList<FoodEntity> // 랜덤 리스트 초기화
 
             randomInt = Random().nextInt(it.size - 1) // 랜덤 숫자 출력
@@ -79,25 +85,24 @@ class ResultActivity : AppCompatActivity() {
 
             binding.food = result // DataBinding
             result.name?.let {
-                viewModel.getMenuList(result.name!!)
+                // 메뉴 리스트 옵저빙 후 조치
+                viewModel.getMenuList(result.name!!).observe(this) { list ->
+                    adapter.submitList(list)
+
+                    if (list.isEmpty()) { // 메뉴 리스트가 없으면 안내
+                        binding.itemEmpty.text = "메뉴가 등록되어 있지 않아요 😭"
+                    } else {
+                        binding.itemEmpty.text = ""
+                    }
+                }
             } // 종류에 따른 메뉴리스트 갱신
         }
 
-        val adapter = MenuAdapter()
+
         binding.rcvMenu.addItemDecoration(RecyclerViewDecoration(10))
         binding.rcvMenu.adapter = adapter
         binding.rcvMenu.layoutManager = LinearLayoutManager(this)
 
-        // 메뉴 리스트 옵저빙 후 조치
-        viewModel.menuList.observe(this) {
-            adapter.submitList(it)
-
-            if (it.isEmpty()) { // 메뉴 리스트가 없으면 안내
-                binding.itemEmpty.text = "메뉴가 등록되어 있지 않아요 😭"
-            } else {
-                binding.itemEmpty.text = ""
-            }
-        }
 
         // 자세한 정보 확인하기
         binding.btnInfo.setOnClickListener {
@@ -123,15 +128,14 @@ class ResultActivity : AppCompatActivity() {
                 snackBar.show()
 
                 return@setOnClickListener
-            }
-            else { // 애니메이션과 함께 다시 데이터 분석
+            } else { // 애니메이션과 함께 다시 데이터 분석
 
                 binding.ivRotate.startAnimation(animation)
 
                 randomInt = Random().nextInt(randomList.size)
                 result = randomList[randomInt]
                 binding.food = result // Data Binding
-                result.name.let { viewModel.getMenuList(it!!)}
+                result.name.let { viewModel.getMenuList(it!!) }
             }
         }
     }
@@ -186,5 +190,4 @@ class ResultActivity : AppCompatActivity() {
         snackBarText.typeface = Typeface.createFromAsset(this.assets, "context.ttf")
         snackBarView.setBackgroundColor(Color.parseColor("#4354F1"))
     }
-
 }

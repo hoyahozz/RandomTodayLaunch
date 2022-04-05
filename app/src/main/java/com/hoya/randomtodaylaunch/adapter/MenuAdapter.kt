@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hoya.randomtodaylaunch.databinding.ItemMenuListBinding
-import com.hoya.randomtodaylaunch.model.MenuEntity
+import com.hoya.randomtodaylaunch.data.entity.MenuEntity
 
 /* 상세 화면의 메뉴 리스트 어댑터  */
 class MenuAdapter : RecyclerView.Adapter<MenuAdapter.ListViewHolder>() {

@@ -18,7 +18,7 @@ class MenuDialog(
     private val fName : String
 ) : DialogFragment() {
 
-    private val viewModel : ListViewModel by viewModels()
+    private lateinit var viewModel : ListViewModel
 
     private lateinit var binding: DialogMenuBinding
     private val adapter: MenuAdapter by lazy { MenuAdapter() }
@@ -35,6 +35,9 @@ class MenuDialog(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val viewModelFactory = ListViewModel.ListViewModelFactory()
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ListViewModel::class.java)
+
         binding.recyclerView.apply {
             this.layoutManager = LinearLayoutManager(requireContext())
             this.adapter = this@MenuDialog.adapter
@@ -45,9 +48,7 @@ class MenuDialog(
             dismiss()
         }
 
-        viewModel.getMenuList(fName)
-
-        viewModel.menuList.observe(this) {
+        viewModel.getMenuList(fName).observe(this) {
             if (it.isEmpty()) { // 메뉴 리스트가 없으면 안내
                 binding.itemEmpty.text = "메뉴가 등록되어 있지 않아요 😭"
             } else {
